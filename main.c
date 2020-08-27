@@ -8,7 +8,6 @@
 
 int super_pooper_squareSolver(double a, double b, double c, double* pointer_x1, double* pointer_x2)
 {	
-	printf("Trying to solve the square equation:\n(%lg)*x^2 + (%lg)*x + (%lg) = 0\n", a, b, c);
 
 	assert(isfinite(a));
 	assert(isfinite(b));
@@ -17,6 +16,8 @@ int super_pooper_squareSolver(double a, double b, double c, double* pointer_x1, 
 	assert(pointer_x1 != NULL);
 	assert(pointer_x2 != NULL);
 	assert(pointer_x2 != pointer_x1);
+
+	printf("Trying to solve the square equation:\n(%lg)*x^2 + (%lg)*x + (%lg) = 0\n", a, b, c);
 
 	if (a == 0) 
 	{ 
