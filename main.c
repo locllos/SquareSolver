@@ -1,10 +1,10 @@
 //SquareSolver 
 
-#define INF -1
-
 #include <stdio.h>
 #include <math.h>
 #include <assert.h>
+
+const int INF = -1;
 
 int super_pooper_squareSolver(double a, double b, double c, double* pointer_x1, double* pointer_x2)
 {	
@@ -74,6 +74,7 @@ int main()
 
 			printf("No roots\n");
 			break;
+
 		case(1):
 
 			printf("One root:\nx1 = %lg\n", x1);
@@ -84,14 +85,14 @@ int main()
 			printf("Two roots:\nx1 = %lg\nx2 = %lg\n", x1,x2);
 			break;
 
-		case(INF):
+		case(-1): //Kostyl
 
 			printf("Infinite amount of roots\n");
 			break;
 
 		default:
 
-			printf("I do not fucking know what happened.\n");
+			printf("I do not fucking know what happened, but if you wanna know: amount of roots = %d\n", amount_of_roots);
 			break;
 	}
 
