@@ -1,4 +1,3 @@
-//SquareSolver 
 
 #include <stdio.h>
 #include <math.h>
@@ -7,29 +6,45 @@
 const int INF = -1;
 const double epsilon = 1e-9;
 
-int super_pooper_squareSolver(double a, double b, double c, double* pointer_x1, double* pointer_x2)
+bool is_zero(double n)
+{
+	return (abs(n) < epsilon) ? true : false;
+}
+
+/*!
+Решает квадратное уравнение
+\param[in]  a  коэффициент квадратного уравнения при x^2
+\param[in]  b  коэффициент квадратного уравнения при x^1
+\param[in]  c  коэффициент квадратного уравнения при x^0
+\param[out] x1 указатель на корень квадратного уравнения
+\param[out] x2 указатель на корень квадратного уравнения
+\return Количество корней квадратного уравнения
+\warning Зимой лучше надевать шапку, иначе голову застудишь
+*/
+
+int super_pooper_squareSolver(double a, double b, double c, double* ptr_x1, double* ptr_x2)
 {	
 
 	assert(isfinite(a));
 	assert(isfinite(b));
 	assert(isfinite(c));
 
-	assert(pointer_x1 != NULL);
-	assert(pointer_x2 != NULL);
-	assert(pointer_x2 != pointer_x1);
+	assert(ptr_x1 != NULL);
+	assert(ptr_x2 != NULL);
+	assert(ptr_x2 != ptr_x1);
 
 	printf("Trying to solve the square equation:\n(%lg)*x^2 + (%lg)*x + (%lg) = 0\n", a, b, c);
 
-	if (a == 0) 
+	if (is_zero(a)) 
 	{ 
-		if (b == 0) 
+		if (is_zero(b)) 
 		{
 			if (c == 0) return INF;
 			else return 0;
 		}
 		else 
 		{ 
-			(*pointer_x1) = -c/b; 
+			(*ptr_x1) = -c/b; 
 
 			return 1; 
 		}
@@ -37,28 +52,29 @@ int super_pooper_squareSolver(double a, double b, double c, double* pointer_x1, 
 
 	else
 	{
-		double discriminant = pow(b, 2) - 4*a*c;
+		double discriminant = b*b - 4 * a * c;
 		printf("%lg\n", discriminant);
-		if (discriminant < 0 && abs(discriminant) > epsilon)  
+		if (discriminant < 0 && !is_zero(discriminant))  
 		{
 			return 0;
 		}
-		else if (abs(discriminant) < epsilon)
+		else if (is_zero(discriminant))
 		{ 
-			(*pointer_x1) = (-b)/(2*a);
+			(*ptr_x1) = (-b)/(2 * a);
 
 			return 1;
 		}
 		else 
 		{
-			(*pointer_x1) = (-b + sqrt(discriminant))/(2*a);
-			(*pointer_x2) = (-b - sqrt(discriminant))/(2*a);
+			(*ptr_x1) = (-b + sqrt(discriminant))/(2 * a);
+			(*ptr_x2) = (-b - sqrt(discriminant))/(2 * a);
 
 			return 2;
 		}
 
 	}
 }
+
 
 int main()
 {	
@@ -68,7 +84,7 @@ int main()
 	scanf("%lg %lg %lg", &a,&b, &c);
 
 	double x1 = 0, x2 = 0;
-	int amount_of_roots = super_pooper_squareSolver(a,b,c, &x1, &x2);
+	int amount_of_roots = super_pooper_squareSolver(a, b, c, &x1, &x2);
 
 	switch (amount_of_roots)
 	{
