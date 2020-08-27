@@ -5,6 +5,7 @@
 #include <assert.h>
 
 const int INF = -1;
+const int epsilon = 1e-6;
 
 int super_pooper_squareSolver(double a, double b, double c, double* pointer_x1, double* pointer_x2)
 {	
@@ -41,7 +42,7 @@ int super_pooper_squareSolver(double a, double b, double c, double* pointer_x1, 
 		{
 			return 0;
 		}
-		else if (discriminant == 0) 
+		else if (abs(discriminant - 0) < epsilon)
 		{ 
 			(*pointer_x1) = (-b)/(2*a);
 
