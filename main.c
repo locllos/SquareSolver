@@ -85,7 +85,7 @@ int main()
 			printf("Two roots:\nx1 = %lg\nx2 = %lg\n", x1,x2);
 			break;
 
-		case(-1): //Kostyl
+		case(INF): 
 
 			printf("Infinite amount of roots\n");
 			break;
