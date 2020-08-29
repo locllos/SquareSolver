@@ -169,7 +169,7 @@ void tests()
 		else printf("Test #%d failed. nRoots: %d, x1: %lg.\n", i + 1, check_n, check_x1);
 	}
 
-	//inf root
+	//no root
 	check_n = super_pooper_squareSolver(coeffs[3 * 5], coeffs[3 * 5 + 1], coeffs[3 * 5 + 2], &check_x1, &check_x2);
 
 	if (check_n == 0) passed = 1;
@@ -178,7 +178,7 @@ void tests()
 	if (passed) printf("Test #%d passed.\n", 6);
 	else printf("Test #%d failed. nRoots: %d, x1: %lg.\n", 6, check_n, check_x1);
 
-	//no root
+	//inf root
 	check_n = super_pooper_squareSolver(coeffs[3 * 6], coeffs[3 * 6 + 1], coeffs[3 * 6 + 2], &check_x1, &check_x2);
 
 	if (check_n == INF) passed = 1;
