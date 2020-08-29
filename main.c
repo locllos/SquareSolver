@@ -1,17 +1,20 @@
 #include <stdio.h>
+#include <ctype.h>
 #include <math.h>
 #include <assert.h>
 
 const int INF = -1;
 const double epsilon = 1e-9;
 
-int is_zero(double n);
+int Is_zero(double n);
 
-int checker(int check_n, double check_x1, double check_x2, int true_n, double true_x1, double true_x2);
+int Checker(int check_n, double check_x1, double check_x2, int true_n, double true_x1, double true_x2);
 
-void tests();
+int Super_pooper_squareSolver(double a, double b, double c, double* ptr_x1, double* ptr_x2);
 
-int super_pooper_squareSolver(double a, double b, double c, double* ptr_x1, double* ptr_x2);
+void Tests();
+
+void User_idiot();
 
 
 int main()
@@ -19,57 +22,71 @@ int main()
 	printf("Welcome! This is SquareSolver program.\nInput a, b, c coefficients of square equation.\n");
 
 	double a = 0, b = 0, c = 0;
-	scanf("%lg %lg %lg", &a, &b, &c);
+	while (scanf("%lg %lg %lg", &a, &b, &c) != 3)
+	{
+		User_idiot();
+		
+	}
 
 	printf("Trying to solve the square equation:\n%lg*x^2%+lg*x%+lg = 0\n", a, b, c);
 
 	double x1 = 0, x2 = 0;
-	int amount_of_roots = super_pooper_squareSolver(a, b, c, &x1, &x2);
+	int amount_of_roots = Super_pooper_squareSolver(a, b, c, &x1, &x2);
 
 	switch (amount_of_roots)
 	{
-	case(0):
+		case(0):
 
-		printf("No roots\n");
-		break;
+			printf("No roots\n");
+			break;
 
-	case(1):
+		case(1):
 
-		printf("One root:\nx1 = %lg\n", x1);
-		break;
+			printf("One root:\nx = %lg\n", x1);
+			break;
 
-	case(2):
+		case(2):
 
-		printf("Two roots:\nx1 = %lg\nx2 = %lg\n", x1, x2);
-		break;
+			printf("Two roots:\nx1 = %lg\nx2 = %lg\n", x1, x2);
+			break;
 
-	case(-1):
+		case(INF):
 
-		printf("Infinite amount of roots\n");
-		break;
+			printf("Infinite amount of roots\n");
+			break;
 
-	default:
+		default:
 
-		printf("I do not fucking know what happened, but if you wanna know: amount of roots = %d\n", amount_of_roots);
-		break;
+			printf("I do not fucking know what happened, but if you wanna know: amount of roots = %d\n", amount_of_roots);
+			break;
 	}
 
-	int INPUT = 0;
+	int is_launch_test = 0;
 	
 	printf("Do you want to launch unit tests? 1 or 0.\n");
-	scanf("%d", &INPUT);
+	while (scanf("%d", &is_launch_test) != 1)
+	{
+		User_idiot();
+	}
 	
-	if (INPUT) tests();
+	if (is_launch_test) Tests();
 	
 	return 0;
 }
 
-int is_zero(double n)
+/*!
+Проверяет является ли число нулём с заданной точностью (1e-9)
+\param[in]  n - число типа double
+\return     Булевое значение
+\warning Под лежачий камень и вода не течет 
+*/
+
+int Is_zero(double n)
 {
-	return (fabs(n) < epsilon) ? 1 : 0;
+	return (fabs(n) < epsilon);
 }
 
-int checker(int check_n, double check_x1, double check_x2, int true_n, double true_x1, double true_x2)
+int Checker(int check_n, double check_x1, double check_x2, int true_n, double true_x1, double true_x2)
 {
 	return (check_n == true_n && check_x1 == true_x1 && check_x2 == true_x2);
 }
@@ -85,7 +102,7 @@ int checker(int check_n, double check_x1, double check_x2, int true_n, double tr
 \warning Зимой лучше надевать шапку, иначе голову застудишь
 */
 
-int super_pooper_squareSolver(double a, double b, double c, double* ptr_x1, double* ptr_x2)
+int Super_pooper_squareSolver(double a, double b, double c, double* ptr_x1, double* ptr_x2)
 {
 
 	assert(isfinite(a));
@@ -96,12 +113,18 @@ int super_pooper_squareSolver(double a, double b, double c, double* ptr_x1, doub
 	assert(ptr_x2 != NULL);
 	assert(ptr_x2 != ptr_x1);
 
-	if (is_zero(a))
+	if (Is_zero(a))
 	{
-		if (is_zero(b))
+		if (Is_zero(b))
 		{
-			if (c == 0) return INF;
-			else return 0;
+			if (Is_zero(c))
+			{
+				return INF;
+			}
+			else
+			{
+				return 0;
+			}
 		}
 		else
 		{
@@ -114,11 +137,11 @@ int super_pooper_squareSolver(double a, double b, double c, double* ptr_x1, doub
 	else
 	{
 		double discriminant = b * b - 4 * a * c;
-		if (discriminant < 0 && !is_zero(discriminant))
+		if (discriminant < 0 && !Is_zero(discriminant))
 		{
 			return 0;
 		}
-		else if (is_zero(discriminant))
+		else if (Is_zero(discriminant))
 		{
 			(*ptr_x1) = (-b) / (2 * a);
 
@@ -135,7 +158,7 @@ int super_pooper_squareSolver(double a, double b, double c, double* ptr_x1, doub
 	}
 }
 
-void tests()
+void Tests()
 {
 	double coeffs[21] = { 1e-5, -2e-5, -3e-5, 1, 1, -2, 1e5, -1e5, -2e5, 1, 2, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0 };
 
@@ -148,42 +171,96 @@ void tests()
 	//double roots
 	for (int i = 0; i < 3; ++i)
 	{
-		check_n = super_pooper_squareSolver(coeffs[3 * i], coeffs[3 * i + 1], coeffs[3 * i + 2], &check_x1, &check_x2);
+		check_n = Super_pooper_squareSolver(coeffs[3 * i], coeffs[3 * i + 1], coeffs[3 * i + 2], &check_x1, &check_x2);
 		
-		if (checker(check_n, check_x1, check_x2, 2, double_roots[2 * i], double_roots[2 * i + 1])) passed = 1;
-		else passed = 0;
+		if (Checker(check_n, check_x1, check_x2, 2, double_roots[2 * i], double_roots[2 * i + 1]))
+		{
+			passed = 1;
+		}
+		else
+		{
+			passed = 0;
+		}
 
-		if (passed) printf("Test #%d passed.\n", i + 1);
-		else printf("Test #%d failed. nRoots: %d, x1: %lg, x2: %lg.\n", i + 1, check_n, check_x1, check_x2);
+		if (passed)
+		{
+			printf("Test #%d passed.\n", i + 1);
+		}
+		else
+		{
+			printf("Test #%d failed. nRoots: %d, x1: %lg, x2: %lg.\n", i + 1, check_n, check_x1, check_x2);
+		}
 	}
 
 	//single roots
 	for (int i = 3; i < 5; ++i)
 	{
-		check_n = super_pooper_squareSolver(coeffs[3 * i], coeffs[3 * i + 1], coeffs[3 * i + 2], &check_x1, &check_x2);
+		check_n = Super_pooper_squareSolver(coeffs[3 * i], coeffs[3 * i + 1], coeffs[3 * i + 2], &check_x1, &check_x2);
 		
-		if (checker(check_n, check_x1, check_x1, 1, single_roots[i - 3], single_roots[i - 3])) passed = 1;
-		else passed = 0;
-
-		if (passed) printf("Test #%d passed.\n", i + 1);
-		else printf("Test #%d failed. nRoots: %d, x1: %lg.\n", i + 1, check_n, check_x1);
+		if (Checker(check_n, check_x1, check_x1, 1, single_roots[i - 3], single_roots[i - 3]))
+		{
+			passed = 1;
+		}
+		else
+		{
+			passed = 0;
+		}
+		
+		if (passed)
+		{
+			printf("Test #%d passed.\n", i + 1);
+		}
+		else
+		{
+			printf("Test #%d failed. nRoots: %d, x1: %lg.\n", i + 1, check_n, check_x1);
+		}
 	}
 
 	//no root
-	check_n = super_pooper_squareSolver(coeffs[3 * 5], coeffs[3 * 5 + 1], coeffs[3 * 5 + 2], &check_x1, &check_x2);
+	check_n = Super_pooper_squareSolver(coeffs[3 * 5], coeffs[3 * 5 + 1], coeffs[3 * 5 + 2], &check_x1, &check_x2);
 
-	if (check_n == 0) passed = 1;
-	else passed = 0;
+	if (check_n == 0)
+	{
+		passed = 1;
+	}
+	else
+	{
+		passed = 0;
+	}
 	
-	if (passed) printf("Test #%d passed.\n", 6);
-	else printf("Test #%d failed. nRoots: %d, x1: %lg.\n", 6, check_n, check_x1);
+	if (passed)
+	{
+		printf("Test #%d passed.\n", 6);
+	}
+	else
+	{
+		printf("Test #%d failed. nRoots: %d, x1: %lg.\n", 6, check_n, check_x1);
+	}
 
 	//inf root
-	check_n = super_pooper_squareSolver(coeffs[3 * 6], coeffs[3 * 6 + 1], coeffs[3 * 6 + 2], &check_x1, &check_x2);
+	check_n = Super_pooper_squareSolver(coeffs[3 * 6], coeffs[3 * 6 + 1], coeffs[3 * 6 + 2], &check_x1, &check_x2);
 
-	if (check_n == INF) passed = 1;
-	else passed = 0;
+	if (check_n == INF)
+	{
+		passed = 1;
+	}
+	else
+	{
+		passed = 0;
+	}
 
-	if (passed) printf("Test #%d passed.\n", 7);
-	else printf("Test #%d failed. nRoots: %d, x1: %lg.\n", 7, check_n, check_x1);
+	if (passed)
+	{
+		printf("Test #%d passed.\n", 7);
+	}
+	else
+	{
+		printf("Test #%d failed. nRoots: %d, x1: %lg.\n", 7, check_n, check_x1);
+	}
+}
+
+void User_idiot()
+{
+	while ((getchar()) != '\n');
+	printf("Uhh, you are fucking idiot, do you think you are smarter than me? No. You can input only integer values!\n");
 }
