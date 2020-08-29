@@ -6,9 +6,27 @@
 const int INF = -1;
 const double epsilon = 1e-9;
 
+/*!
+Проверяет является ли число нулём с заданной точностью (1e-9)
+\param[in]  n - число типа double
+\return     Булевое значение
+\warning Под лежачий камень и вода не течет
+*/
+
 int Is_zero(double n);
 
 int Checker(int check_n, double check_x1, double check_x2, int true_n, double true_x1, double true_x2);
+
+/*!
+Решает квадратное уравнение
+\param[in]  a  коэффициент квадратного уравнения при x^2
+\param[in]  b  коэффициент квадратного уравнения при x^1
+\param[in]  c  коэффициент квадратного уравнения при x^0
+\param[out] ptr_x1 указатель на корень квадратного уравнения
+\param[out] ptr_x2 указатель на корень квадратного уравнения
+\return Количество корней квадратного уравнения
+\warning Зимой лучше надевать шапку, иначе голову застудишь
+*/
 
 int Super_pooper_squareSolver(double a, double b, double c, double* ptr_x1, double* ptr_x2);
 
@@ -74,12 +92,6 @@ int main()
 	return 0;
 }
 
-/*!
-Проверяет является ли число нулём с заданной точностью (1e-9)
-\param[in]  n - число типа double
-\return     Булевое значение
-\warning Под лежачий камень и вода не течет 
-*/
 
 int Is_zero(double n)
 {
@@ -91,16 +103,6 @@ int Checker(int check_n, double check_x1, double check_x2, int true_n, double tr
 	return (check_n == true_n && check_x1 == true_x1 && check_x2 == true_x2);
 }
 
-/*!
-Решает квадратное уравнение
-\param[in]  a  коэффициент квадратного уравнения при x^2
-\param[in]  b  коэффициент квадратного уравнения при x^1
-\param[in]  c  коэффициент квадратного уравнения при x^0
-\param[out] ptr_x1 указатель на корень квадратного уравнения
-\param[out] ptr_x2 указатель на корень квадратного уравнения
-\return Количество корней квадратного уравнения
-\warning Зимой лучше надевать шапку, иначе голову застудишь
-*/
 
 int Super_pooper_squareSolver(double a, double b, double c, double* ptr_x1, double* ptr_x2)
 {
