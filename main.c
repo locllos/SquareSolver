@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <ctype.h>
 #include <math.h>
 #include <assert.h>
 
@@ -15,8 +14,6 @@ const double epsilon = 1e-9;
 
 int Is_zero(double n);
 
-int Checker(int check_n, double check_x1, double check_x2, int true_n, double true_x1, double true_x2);
-
 /*!
 Решает квадратное уравнение
 \param[in]  a  коэффициент квадратного уравнения при x^2
@@ -30,6 +27,8 @@ int Checker(int check_n, double check_x1, double check_x2, int true_n, double tr
 
 int Super_pooper_squareSolver(double a, double b, double c, double* ptr_x1, double* ptr_x2);
 
+int Checker(int check_n, double check_x1, double check_x2, int true_n, double true_x1, double true_x2);
+
 void Tests();
 
 void User_idiot();
@@ -41,10 +40,7 @@ int main()
 
 	double a = 0, b = 0, c = 0;
 	while (scanf("%lg %lg %lg", &a, &b, &c) != 3)
-	{
 		User_idiot();
-		
-	}
 
 	printf("Trying to solve the square equation:\n%lg*x^2%+lg*x%+lg = 0\n", a, b, c);
 
@@ -83,11 +79,11 @@ int main()
 	
 	printf("Do you want to launch unit tests? 1 or 0.\n");
 	while (scanf("%d", &is_launch_test) != 1)
-	{
 		User_idiot();
-	}
 	
-	if (is_launch_test) Tests();
+	
+	if (is_launch_test) 
+		Tests();
 	
 	return 0;
 }
@@ -120,13 +116,9 @@ int Super_pooper_squareSolver(double a, double b, double c, double* ptr_x1, doub
 		if (Is_zero(b))
 		{
 			if (Is_zero(c))
-			{
 				return INF;
-			}
 			else
-			{
 				return 0;
-			}
 		}
 		else
 		{
@@ -176,22 +168,15 @@ void Tests()
 		check_n = Super_pooper_squareSolver(coeffs[3 * i], coeffs[3 * i + 1], coeffs[3 * i + 2], &check_x1, &check_x2);
 		
 		if (Checker(check_n, check_x1, check_x2, 2, double_roots[2 * i], double_roots[2 * i + 1]))
-		{
 			passed = 1;
-		}
+		
 		else
-		{
 			passed = 0;
-		}
 
 		if (passed)
-		{
 			printf("Test #%d passed.\n", i + 1);
-		}
 		else
-		{
 			printf("Test #%d failed. nRoots: %d, x1: %lg, x2: %lg.\n", i + 1, check_n, check_x1, check_x2);
-		}
 	}
 
 	//single roots
@@ -200,65 +185,41 @@ void Tests()
 		check_n = Super_pooper_squareSolver(coeffs[3 * i], coeffs[3 * i + 1], coeffs[3 * i + 2], &check_x1, &check_x2);
 		
 		if (Checker(check_n, check_x1, check_x1, 1, single_roots[i - 3], single_roots[i - 3]))
-		{
 			passed = 1;
-		}
 		else
-		{
 			passed = 0;
-		}
 		
 		if (passed)
-		{
 			printf("Test #%d passed.\n", i + 1);
-		}
 		else
-		{
 			printf("Test #%d failed. nRoots: %d, x1: %lg.\n", i + 1, check_n, check_x1);
-		}
 	}
 
 	//no root
 	check_n = Super_pooper_squareSolver(coeffs[3 * 5], coeffs[3 * 5 + 1], coeffs[3 * 5 + 2], &check_x1, &check_x2);
 
 	if (check_n == 0)
-	{
 		passed = 1;
-	}
 	else
-	{
 		passed = 0;
-	}
 	
 	if (passed)
-	{
 		printf("Test #%d passed.\n", 6);
-	}
 	else
-	{
 		printf("Test #%d failed. nRoots: %d, x1: %lg.\n", 6, check_n, check_x1);
-	}
 
 	//inf root
 	check_n = Super_pooper_squareSolver(coeffs[3 * 6], coeffs[3 * 6 + 1], coeffs[3 * 6 + 2], &check_x1, &check_x2);
 
 	if (check_n == INF)
-	{
 		passed = 1;
-	}
 	else
-	{
 		passed = 0;
-	}
 
 	if (passed)
-	{
 		printf("Test #%d passed.\n", 7);
-	}
 	else
-	{
 		printf("Test #%d failed. nRoots: %d, x1: %lg.\n", 7, check_n, check_x1);
-	}
 }
 
 void User_idiot()
@@ -266,3 +227,4 @@ void User_idiot()
 	while ((getchar()) != '\n');
 	printf("Uhh, you are fucking idiot, do you think you are smarter than me? No. You can input only integer values!\n");
 }
+
